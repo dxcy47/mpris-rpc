@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"os"
 	"time"
+
 	"github.com/Pauloo27/go-mpris"
 	"github.com/godbus/dbus/v5"
 	"github.com/hugolgst/rich-go/client"
@@ -52,10 +53,11 @@ func main() {
 		if err != nil {
 			panic(err)
 		}
-
 		err = client.SetActivity(client.Activity{
-			State:      fmt.Sprint("by", status["xesam:artist"]),
-			Details:    fmt.Sprint(status["xesam:title"]),
+            State:      fmt.Sprint("by ", status["xesam:artist"].String()[2 : len(status["xesam:artist"].String()) -2]),
+            // .String returns the String vallue, for artist it's encased in a [""] so I just cut those of with a slice
+            Details:    fmt.Sprint(status["xesam:title"].String()[1 : len(status["xesam:title"].String()) -1]),
+            // same here but with title it just encases it in ""
 			LargeImage: "BINGLE.jpg",
 			LargeText:  "This is the large image :D",
 			SmallImage: "smallimageid",

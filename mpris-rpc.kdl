@@ -1,4 +1,0 @@
-// discord app id, used to make rpc work. make one for free at https://discord.com/developers/applications/
-appid ""
-// update time: how often you want the current playing media to be refreshed
-updtime 10
