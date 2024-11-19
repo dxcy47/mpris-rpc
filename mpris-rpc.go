@@ -12,24 +12,33 @@ import (
 )
 
 func main() {
-
+	
+	// create a struct to store config file info
 	type Conf struct {
 		Appid   string `kdl:"appid"`
 		Updtime int `kdl:"updtime"`
 	}
 	var conf Conf
 	
+	// define config directory
 	confdir, err := os.UserConfigDir()
+	if err != nil {
+		panic(err)
+	}
 	kdlconf := confdir + "/mpris-rpc/mpris-rpc.kdl"
-	file, err := os.ReadFile(kdlconf)
-	if err != nil {
-		panic(err)
+	file, errf := os.ReadFile(kdlconf)
+	// if unable to read config file, use preset settings
+	if errf != nil {
+		conf.Appid = "1308037162817818634"
+		conf.Updtime = 10
 	}
- 	err = kdl.Unmarshal(file, &conf)
-	if err != nil {
-		panic(err)
+	// if there were no issues reading the config file, store its info in conf
+ 	if errf == nil {
+		err = kdl.Unmarshal(file, &conf)
+		if err != nil {
+			panic(err)
+		}
 	}
-
 
 	err = client.Login(conf.Appid)
 	if err != nil {
