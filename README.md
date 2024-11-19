@@ -5,11 +5,11 @@ mpris-rpc is a discord rich presence status that shows media being played by app
 # TODO List
 - [x] Remove the "" and [] from showing up on song and artist names
 - [x] Adding some sort of whitelisting functionality, to allow choosing which apps are tracked
+- [x] Add an installer script to automatically compile and place the config in the right directory.
 - [ ] add better error handeling in order to run it as background service
 - [ ] disable whitelist if it's empty
 - [ ] make a systemd service
 - [ ] Showing song covers. Currently the image that is shown is the icon for the discord app you set
-- [ ] Add an installer script to automatically compile and place the config in the right directory.
 
 # Config
 The config file mpris-rpc.kdl has to be placed in ~/.config/mpris-rpc. For now, the config has to be moved manually. ~~mpris-rpc **will not** work without the config file~~ mpris-rpc works now without the config file. if the config file cannot be read, it will use the app id of my discord app, and an update time of 10 seconds.
