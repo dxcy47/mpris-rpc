@@ -2,3 +2,5 @@
 appid ""
 // update time: how often you want the current playing media to be refreshed
 updtime 10
+
+player "elisa"
