@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"os"
+	"strings"
 	"time"
 
 	"github.com/Pauloo27/go-mpris"
@@ -16,6 +17,7 @@ func main() {
 	type Conf struct {
 		Appid   string `kdl:"appid"`
 		Updtime int `kdl:"updtime"`
+        ConfPlayer string `kdl:"player"`
 	}
 	var conf Conf
 	
@@ -46,9 +48,20 @@ func main() {
 	if len(names) == 0 {
 		panic("No player found")
 	}
-	name := names[0]
+    var name string // create an empty string variable
+    for _, e := range names { // iterate over all available names and check if any of them match our configured name
+        if (strings.Contains(e, conf.ConfPlayer)) {
+            // I used contains since the player will be named something like 'org.freedesktop.elisa' which is a mouthfull
+            // if we match a player, define the name as that player and break the iterator loopja
+            // this means that we match our first found match
+            name = e
+            break
+        }
+    }
 	player := mpris.New(conn, name)
+    // --NOTE this for now just crashes if the media player find nothing, we should prob change that -w-
 	for {
+        fmt.Println(name);
 		status, err := player.GetMetadata()
 		if err != nil {
 			panic(err)
