@@ -50,13 +50,24 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
+	
+	for {
 	names, err := mpris.List(conn)
-	if err != nil {
-		panic(err)
+		if err != nil {
+			panic(err)
+		}
+		if len(names) == 0 {
+			time.Sleep(time.Duration(conf.Updtime) * time.Second)
+			continue
+		}
+		if len(names) != 0 {
+			break
+		}
 	}
-	if len(names) == 0 {
-		panic("No player found")
-	}
+	names, err := mpris.List(conn)
+		if err != nil {
+			panic(err)
+		}
     var name string // create an empty string variable
     for _, e := range names { // iterate over all available names and check if any of them match our configured name
         if (strings.Contains(e, conf.ConfPlayer)) {
@@ -70,6 +81,21 @@ func main() {
 	player := mpris.New(conn, name)
     // --NOTE this for now just crashes if the media player find nothing, we should prob change that -w-
 	for {
+		
+		for {
+			names, err := mpris.List(conn)
+				if err != nil {
+					panic(err)
+				}
+				if len(names) == 0 {
+					time.Sleep(time.Duration(conf.Updtime) * time.Second)
+					continue
+				}
+				if len(names) != 0 {
+					break
+		}
+	}
+
         fmt.Println(name);
 		status, err := player.GetMetadata()
 		if err != nil {
