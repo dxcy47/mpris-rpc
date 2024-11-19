@@ -9,7 +9,7 @@ mpris-rpc is a discord rich presence status that shows media being played by app
 - Add an installer script to automatically compile and place the config in the right directory.
 
 # Config
-The config file mpris-rpc.kdl has to be placed in ~/.config/mpris-rpc. For now, the config has to be moved manually. mpris-rpc **will not** work without the config file.
+The config file mpris-rpc.kdl has to be placed in ~/.config/mpris-rpc. For now, the config has to be moved manually. ~~mpris-rpc **will not** work without the config file~~ mpris-rpc works now without the config file. if the config file cannot be read, it will use the app id of my discord app, and an update time of 10 seconds.
 
 # Installation
 **You need go installed on your system for mpris-rpc to work** 
